@@ -4,7 +4,91 @@
   <title>Our simple HTTP server</title>
   <link rel="stylesheet" type="text/css" href="/style.css">
   
+<<<<<<< HEAD
   <script src="client.js"></script>
+=======
+  <script>
+    //handles fetch response
+    const handleResponse = async (response, parseResponse) => {
+      const content = document.getElementById('content');
+     
+      switch(response.status) {
+        case 200: //Success
+          content.innerHTML = `<b>Success</b>`;
+          break;
+        case 400: //Bad Request
+          content.innerHTML = `<b>Bad Request</b>`;
+          break;
+        case 401: //Unauthorized
+          content.innerHTML = '<b>Unauthorized</b>';
+          break;        
+        case 403: //Forbidden
+          content.innerHTML = '<b>Forbidden</b>';
+          break;            
+        case 404: //Not Found
+          content.innerHTML = `<b>Page Not Found!</b>`;
+          break;
+        case 500: //internal
+          content.innerHTML = '<b>Internal</b>';
+          break;
+        case 501: //Not Implemented
+          content.innerHTML = '<b>Not Implemented</b>';
+          break;       
+        default: //Anything Else
+          content.innerHTML = `<p>Status Code not Implemented!</p>`;
+          break;
+      }
+
+      if(!parseResponse) {
+        return;
+      }
+
+      console.log(await response.clone().text());
+
+      if(response.headers.get("Content-Type") === 'text/xml') {
+
+        content.innerHTML += `<p>${await response.text()}</p>`;
+
+        return;
+      }
+
+      let resObj = await response.json();
+
+      //Once the response.json() promise is fulfilled we move to this line, which displays the message.
+      content.innerHTML += `<p>${resObj.message}</p>`;
+    };
+    
+
+    //fetch helper
+    const sendFetch = async (url, type) => {
+
+      const options = {
+        method: 'GET',
+        headers: {'Accept': type},
+
+      }
+
+      //Call fetch, wait til we get a response, and then store that response in the variable.
+      let response = await fetch(url, options);
+
+      //Call handleResponse with the response we got back from the server.
+      handleResponse(response, true);
+    };
+
+    //initialization function, actually hooks up what needs hooking up
+    const init = () => {
+      const sendButton = document.querySelector("#send");
+
+      sendButton.addEventListener('click', () => {
+        let page = document.querySelector("#page").value;
+        let type = document.querySelector("#type").value;
+        sendFetch(page, type)
+      });
+    };
+
+    window.onload = init;
+  </script>
+>>>>>>> dcda1bf375f45fbef92db39abdbb0828b69d6fee
 </head>
 <body>
   <section id="top">

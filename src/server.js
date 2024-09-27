@@ -8,11 +8,11 @@ const urlStruct = {
   '/style.css': responseHandler.getStyle,
   '/success': responseHandler.successfulRequest,
   '/badRequest': responseHandler.badRequest,
-  '/unauthorized': responseHandler.getIndex,
-  '/forbidden': responseHandler.getIndex,
-  '/internal': responseHandler.getIndex,
-  '/notImplemented': responseHandler.getIndex,
-  404: responseHandler.getIndex,
+  '/unauthorized': responseHandler.unauthorized,
+  '/forbidden': responseHandler.forbidden,
+  '/internal': responseHandler.internal,
+  '/notImplemented': responseHandler.notImplemented,
+  404: responseHandler.notFound,
 };
 
 const onRequest = (request, response) => {
