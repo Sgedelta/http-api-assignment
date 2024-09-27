@@ -4,10 +4,13 @@
   "description": "The http API Homework for IGME 430",
   "main": "server.js",
   "scripts": {
-    "nodemon": "nodemon --watch ./src",
+    "nodemon": "nodemon -e js,html,css --watch ./src --watch ./hosted ./src/server.js",
     "start": "node ./src/server.js",
     "pretest": "eslint ./src --fix",
-    "test": "echo \"Tests Complete\""
+    "test": "echo \"Tests Complete\"",
+    "buildBundle": "webpack",
+    "watchBundle": "webpack watch",
+    "heroku-postbuild": "webpack --mode production"
   },
   "author": "Sam Easton",
   "license": "UNLICENSED",
